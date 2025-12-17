@@ -6,8 +6,8 @@
        default-locale="en-GB">
 
   <info>
-    <title>Nature (brackets, full author names, year)</title>
-    <id>http://www.zotero.org/styles/nature-brackets-fullname-year</id>
+    <title>Nature (brackets, full authors, year)</title>
+    <id>http://www.zotero.org/styles/nature-brackets-full-authors-year</id>
     <link href="http://www.zotero.org/styles/nature-brackets" rel="self"/>
     <category citation-format="numeric"/>
     <category field="science"/>
@@ -27,14 +27,13 @@
     </choose>
   </macro>
 
-  <!-- ===== AUTHORS (FULL NAMES) ===== -->
+  <!-- ===== AUTHORS (FULL NAMES, NO ET AL) ===== -->
   <macro name="author">
     <names variable="author">
       <name name-as-sort-order="all"
             initialize-with=""
             delimiter=", "
             delimiter-precedes-last="always"/>
-      <et-al font-style="italic"/>
     </names>
   </macro>
 
@@ -48,7 +47,7 @@
     <text variable="volume" font-weight="bold"/>
   </macro>
 
-  <!-- ===== DOI ===== -->
+  <!-- ===== DOI (FULL LINK) ===== -->
   <macro name="access">
     <choose>
       <if variable="DOI">
@@ -67,9 +66,9 @@
     </layout>
   </citation>
 
-  <!-- ===== BIBLIOGRAPHY ===== -->
-  <bibliography et-al-min="6"
-                et-al-use-first="1"
+  <!-- ===== BIBLIOGRAPHY (ET AL DISABLED) ===== -->
+  <bibliography et-al-min="999"
+                et-al-use-first="999"
                 second-field-align="flush"
                 entry-spacing="0"
                 line-spacing="2">
@@ -78,20 +77,27 @@
       <text variable="citation-number" suffix="."/>
       <group delimiter=" ">
 
+        <!-- Authors -->
         <text macro="author"/>
 
+        <!-- Year -->
         <date variable="issued">
           <date-part name="year" prefix=" (" suffix=")."/>
         </date>
 
+        <!-- Title -->
         <text macro="title" suffix="."/>
 
+        <!-- Journal -->
         <text macro="container-title"/>
 
+        <!-- Volume -->
         <text macro="volume" prefix=" "/>
 
+        <!-- Pages (optional) -->
         <text variable="page" prefix=", "/>
 
+        <!-- DOI -->
         <text macro="access"/>
 
       </group>
